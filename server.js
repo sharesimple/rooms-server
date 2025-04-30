@@ -48,7 +48,7 @@ wss.on('connection', ws => {
                 // Check if room is ready
                 if (rooms[roomId].length >= 2) {
                     rooms[roomId].forEach(client => {
-                        client.ws.send(JSON.stringify({ type: 'ready' }));
+                        client.ws.send(JSON.stringify({ type: 'ready', payload: { clients: rooms[roomId].length } }));
                     });
                 } else {
                     ws.send(JSON.stringify({ type: 'notReady' }));
@@ -76,6 +76,10 @@ wss.on('connection', ws => {
             if (rooms[roomId].length < 2 && rooms[roomId].length > 0) {
                 rooms[roomId].forEach(client => {
                     client.ws.send(JSON.stringify({ type: 'notReady' }));
+                });
+            } else if (rooms[roomId].length >= 2) {
+                rooms[roomId].forEach(client => {
+                    client.ws.send(JSON.stringify({ type: 'ready', payload: { clients: rooms[roomId].length } }));
                 });
             }
             if (rooms[roomId].length === 0) {
