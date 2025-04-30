@@ -96,7 +96,7 @@ wss.on('connection', ws => {
     console.log('Client connected:', userId);
 });
 
-const PORT = 8080;
+const PORT = 9993;
 server.listen(PORT, () => {
     console.log(`WebSocket server running on ws://localhost:${PORT}`); // Note: Listening on localhost internally
 });
