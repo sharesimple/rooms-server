@@ -100,3 +100,10 @@ const PORT = 9993;
 server.listen(PORT, () => {
     console.log(`WebSocket server running on ws://localhost:${PORT}`); // Note: Listening on localhost internally
 });
+// Status endpoint for uptime checks
+server.on('request', (req, res) => {
+    if (req.url === '/status') {
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('Status: UP');
+    }
+});
